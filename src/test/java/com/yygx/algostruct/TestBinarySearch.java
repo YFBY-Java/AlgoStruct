@@ -1,10 +1,8 @@
 package com.yygx.algostruct;
 
-import com.yygx.algostruct.util.Utils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 
 import static com.yygx.algostruct.binarySearch.BinarySearch.binarySearchBasic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
