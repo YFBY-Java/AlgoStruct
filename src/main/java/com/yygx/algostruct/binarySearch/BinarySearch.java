@@ -86,16 +86,16 @@ public class BinarySearch {
         int i = 0;
         int j = array.length;
         while (1 < j - i) {
-            int middle = (i+j) >>> 1 ;
-            if(target < array[middle]){  // 循环内的三分支减少为二分支，减少了平均比较次数，但是增大了最低比较次数
+            int middle = (i + j) >>> 1;
+            if (target < array[middle]) {  // 循环内的三分支减少为二分支，减少了平均比较次数，但是增大了最低比较次数
                 j = middle;
-            }else {
+            } else {
                 i = middle;
             }
         }
-        if(array[i] == target){
+        if (array[i] == target) {
             return i;
-        }else {
+        } else {
             return -1;
         }
     }
@@ -108,21 +108,109 @@ public class BinarySearch {
      * @return 返回 插入这个元素应该是第几个元素 <p></p>
      * 用负值减1是为了避免-0 （Java中 0 == -0）
      */
-    public static int binarySearchPoint(int[] array , int target){
-        int i = 0,j = array.length;
-        while (1 < j-i){
-            int middle = (i+j) >>> 1;
-            if(target < array[middle]){
+    public static int binarySearchPoint(int[] array, int target) {
+        int i = 0, j = array.length;
+        while (1 < j - i) {
+            int middle = (i + j) >>> 1;
+            if (target < array[middle]) {
                 j = middle;
-            }else {
+            } else {
                 i = middle;
             }
         }
-        if(array[i] == target){
+        if (array[i] == target) {
             return i;
-        }else {
-            return -(i+1);  // 返回的值是负的插入点（即如果这个元素存在的话，它是第几个元素）
+        } else {
+            return -(i + 1);  // 返回的值是负的插入点（即如果这个元素存在的话，它是第几个元素）
         }
+    }
+
+
+    /**
+     * 二分查找，返回最左侧的要查找元素
+     *
+     * @param array
+     * @param target
+     * @return 最左侧要查找的元素，没找到时返回-1
+     */
+    public static int binarySearchLeftmost(int[] array, int target) {
+        int leftMost = -1;
+        int i = 0, j = array.length - 1;
+        while (i <= j) {
+            int middle = (i + j) >>> 1;
+            if (target < array[middle]) {
+                j = middle - 1;
+            } else if (array[middle] < target) {
+                i = middle + 1;
+            } else {
+                leftMost = middle;
+                j = middle - 1;
+            }
+        }
+        return leftMost;
+    }
+
+
+    /**
+     * 二分查找，返回最左侧的要查找元素
+     *
+     * @param array
+     * @param target
+     * @return 返回 ≥target的最靠左索引
+     */
+    public static int binarySearchLeftmost2(int[] array, int target) {
+        int left = 0, right = array.length - 1;
+        while (left <= right) {
+            int middle = (left + right) >>> 1;
+            if (target <= array[middle]) {
+                right = middle - 1;
+            } else {
+                left = middle + 1;
+            }
+        }
+        return left;
+    }
+
+
+    /**
+     * 二分查找，查找最右侧的目标元素
+     *
+     * @return 最右侧要查找的元素，没找到时返回-1
+     */
+    public static int binarySearchRightmost(int[] array, int target) {
+        int rightmost = -1;
+        int i = 0, j = array.length - 1;
+        while (i <= j) {
+            int middle = (i + j) >>> 1;
+            if (target < array[middle]) {
+                j = middle - 1;
+            } else if (array[middle] < target) {
+                i = middle + 1;
+            } else {
+                rightmost = middle;
+                i = middle + 1;
+            }
+        }
+        return rightmost;
+    }
+
+
+    /**
+     * 二分查找，查找最右侧的目标元素
+     *
+     * @return 返回 ≤target 的最靠右索引
+     */
+    public static int binarySearchRightmost2(int[] array, int target) {
+        int left = 0, right = array.length - 1;
+        while (left <= right) {
+            int middle = (left + right) >>> 1;
+            if (target < array[middle]) {
+                right = middle - 1;
+            } else {
+                left = middle + 1;
+            }
+        }
+        return left - 1;
     }
 
 }

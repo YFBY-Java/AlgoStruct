@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
-import static com.yygx.algostruct.binarySearch.BinarySearch.binarySearchBasic;
+import static com.yygx.algostruct.binarySearch.BinarySearch.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -32,5 +32,37 @@ public class TestBinarySearch {
         assertEquals(-1, binarySearchBasic(a, 0));
         assertEquals(-1, binarySearchBasic(a, 15));
         assertEquals(-1, binarySearchBasic(a, 60));
+    }
+
+    @Test
+    @DisplayName("测试BinarySearchLeftmost 返回-1")
+    public void testBinarySearchLeftmost(){
+        int[] a = {1, 2, 4, 4, 4, 5, 6, 7};
+        assertEquals(0, binarySearchLeftmost(a, 1));
+        assertEquals(1, binarySearchLeftmost(a, 2));
+        assertEquals(2, binarySearchLeftmost(a, 4));
+        assertEquals(5, binarySearchLeftmost(a, 5));
+        assertEquals(6, binarySearchLeftmost(a, 6));
+        assertEquals(7, binarySearchLeftmost(a, 7));
+
+        assertEquals(-1, binarySearchLeftmost(a, 0));
+        assertEquals(-1, binarySearchLeftmost(a, 3));
+        assertEquals(-1, binarySearchLeftmost(a, 8));
+    }
+
+    @Test
+    @DisplayName("测试BinarySearchRightmost 返回-1")
+    public void testBinarySearchRightmost(){
+        int[] a = {1, 2, 4, 4, 4, 5, 6, 7};
+        assertEquals(0, binarySearchRightmost(a, 1));
+        assertEquals(1, binarySearchRightmost (a, 2));
+        assertEquals(4, binarySearchRightmost (a, 4));
+        assertEquals(5, binarySearchRightmost (a, 5));
+        assertEquals(6, binarySearchRightmost (a, 6));
+        assertEquals(7, binarySearchRightmost (a, 7));
+
+        assertEquals(-1, binarySearchRightmost(a, 0));
+        assertEquals(-1, binarySearchRightmost(a, 3));
+        assertEquals(-1, binarySearchRightmost(a, 8));
     }
 }
