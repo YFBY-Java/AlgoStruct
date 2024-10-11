@@ -4,20 +4,29 @@ import java.util.Arrays;
 
 
 public class LeetCode34 {
+//    public static int[] searchRange(int[] nums, int target) {
+//        int left = searchLeft(nums,target);
+//        if(left == -1){
+//            return new int[]{-1,-1};
+//        }else{
+//            return new int[]{left,searchRight(nums,target)};
+//        }
+//    }
+
+
     public static int[] searchRange(int[] nums, int target) {
-        int left = searchLeft(nums,target);
+        int left = searchBoundary(nums,target,true);
         if(left == -1){
             return new int[]{-1,-1};
         }else{
-            return new int[]{left,searchRight(nums,target)};
+            return new int[]{left,searchBoundary(nums,target,false)};
         }
-
     }
 
 
     public static int searchLeft(int[] nums, int target){
         int i = 0,j = nums.length-1;
-        int cadidate = -1;
+        int candidate = -1;
         while(i<=j){
             int middle = (i+j)>>>1;
             if(target < nums[middle]){
@@ -25,16 +34,16 @@ public class LeetCode34 {
             }else if(nums[middle]<target){
                 i = middle+1;
             }else{
-                cadidate = middle;
+                candidate = middle;
                 j = middle-1;
             }
         }
-        return cadidate;
+        return candidate;
     }
 
     public static int searchRight(int[] nums, int target){
         int i = 0,j = nums.length-1;
-        int cadidate = -1;
+        int candidate = -1;
         while(i<=j){
             int middle = (i+j)>>>1;
             if(target < nums[middle]){
@@ -42,11 +51,33 @@ public class LeetCode34 {
             }else if(nums[middle]<target){
                 i = middle+1;
             }else{
-                cadidate = middle;
+                candidate = middle;
                 i = middle+1;
             }
         }
-        return cadidate;
+        return candidate;
+    }
+
+
+    public static int searchBoundary(int[] nums, int target,boolean isLeft){
+        int i = 0,j = nums.length-1;
+        int candidate = -1;
+        while(i<=j){
+            int middle = (i+j)>>>1;
+            if(target < nums[middle]){
+                j = middle-1;
+            }else if(nums[middle]<target){
+                i = middle+1;
+            }else{
+                candidate = middle;
+                if(isLeft){
+                    j = middle -1;
+                }else {
+                    i = middle + 1;
+                }
+            }
+        }
+        return candidate;
     }
 
 
