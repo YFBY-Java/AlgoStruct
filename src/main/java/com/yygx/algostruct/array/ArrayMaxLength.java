@@ -1,4 +1,4 @@
-package com.yygx.algostruct.test;
+package com.yygx.algostruct.array;
 
 /**
  * <p>
@@ -6,7 +6,7 @@ package com.yygx.algostruct.test;
  * </p>
  * Author: <a href="https://github.com/YFBY-Java" target="_blank">吟风抱月</a>
  */
-public class test {
+public class ArrayMaxLength {
 
     public static void main(String[] args) {
         findMaxIntSize();
