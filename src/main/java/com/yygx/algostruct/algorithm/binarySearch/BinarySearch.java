@@ -1,4 +1,4 @@
-package com.yygx.algostruct.binarySearch;
+package com.yygx.algostruct.algorithm.binarySearch;
 
 import java.util.Random;
 

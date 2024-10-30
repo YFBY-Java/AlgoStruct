@@ -1,13 +1,13 @@
-package com.yygx.algostruct.linkedList;
+package com.yygx.algostruct.datastructure.linkedList;
 
 
 import java.util.Iterator;
 import java.util.function.Consumer;
 
 /**
- * 链表
+ * 哨兵单链表
  */
-public class SinglyLinkedList implements Iterable<Integer> {
+public class SentinelSinglyLinkedList implements Iterable<Integer> {
 
 
     /*
@@ -24,7 +24,7 @@ public class SinglyLinkedList implements Iterable<Integer> {
     插入和删除时不需要移动其他元素
      */
 
-    private Node head = null;   // 头指针
+    private Node head = new Node(Integer.MAX_VALUE,null);   // 哨兵节点，用来减少边界处理
 
 
     /**
@@ -37,7 +37,7 @@ public class SinglyLinkedList implements Iterable<Integer> {
 
         // 匿名内部类
         return new Iterator<Integer>() {
-            Node pointer = head;
+            Node pointer = head.next;   // 因为存在哨兵，所以要用哨兵后面的元素开始
 
             // 检查是否存在下一个元素
             @Override
@@ -73,19 +73,7 @@ public class SinglyLinkedList implements Iterable<Integer> {
     }
 
     public void addFirst(int value) {
-//        Node node = new Node(value, null);
-/*        if (head.next == null) {
-            // 链表为空
-            head.next = node;
-        } else {
-            // 链表非空
-            node.next = head.next;
-            head.next = node;
-        }*/
-
-        // 优化
-        head = new Node(value, head);
-
+        insert(0,value);  // 带哨兵的单链表的insert方法可以处理索引0的情况，直接调用即可
     }
 
 
@@ -102,7 +90,7 @@ public class SinglyLinkedList implements Iterable<Integer> {
      * 遍历链表 while
      */
     public void loopWhile(Consumer<Integer> consumer) {
-        Node pointer = head;
+        Node pointer = head.next;  // 从哨兵下一个开始遍历
         while (pointer != null) {
             consumer.accept(pointer.value);
             pointer = pointer.next;
@@ -114,33 +102,10 @@ public class SinglyLinkedList implements Iterable<Integer> {
      * 遍历链表 for
      */
     public void loopFor(Consumer<Integer> consumer) {
-        for (Node pointer = head; pointer != null; pointer = pointer.next) {
+        for (Node pointer = head.next; pointer != null; pointer = pointer.next) {
             consumer.accept(pointer.value);
         }
     }
-
-    public void loopRecursion(Consumer<Integer> before, Consumer<Integer> after){
-        recursion(head,before,after);
-    }
-
-    /**
-     * 递归遍历
-     * 函数调用自身来解决更小规模的问题。
-     * <p>递归通常用于分治策略，树结构遍历，动态规划等</p>
-     * <p>自己调用自己，如果说每个函数对应着一种解决方案，自己调用自己意味着解决方案是一样的（有规律的）</p>
-     * <p>每次调用，函数处理的数据会较上次缩减（子集），而且最后会缩减至无需继续递归</p>
-     * <p>内层函数调用（子集处理）完成，外层函数才算调用完成</p>
-     */
-    public void recursion(Node current, Consumer<Integer> before, Consumer<Integer> after){
-        if(current == null){
-            return;
-        }
-        int value = current.value;
-        before.accept(value);
-        recursion(current.next, before, after);
-        after.accept(value);
-    }
-
 
 
     /**
@@ -149,9 +114,10 @@ public class SinglyLinkedList implements Iterable<Integer> {
      * @return
      */
     private Node findLast() {
-        if (head == null) {
-            return null;
-        }
+        // 有哨兵，不为null
+//        if (head == null) {
+//            return null;
+//        }
         Node pointer;
         for (pointer = head; pointer.next != null; pointer = pointer.next){
 
@@ -167,10 +133,11 @@ public class SinglyLinkedList implements Iterable<Integer> {
      */
     public void addLast(int value) {
         Node last = findLast();
-        if (last == null) {
-            addFirst(value);
-            return;
-        }
+        // 因为存在哨兵节点，所以不会为null
+//        if (last == null) {
+//            addFirst(value);
+//            return;
+//        }
         last.next = new Node(value, null);
     }
 
@@ -179,7 +146,7 @@ public class SinglyLinkedList implements Iterable<Integer> {
      * 返回指定索引元素
      */
     private Node findNode(int index){
-        int i = 0;
+        int i = -1;   // 让哨兵的索引为 -1
         for (Node pointer = head;pointer!= null;pointer = pointer.next,i++){
             if(i == index){
                 return pointer;
@@ -206,10 +173,6 @@ public class SinglyLinkedList implements Iterable<Integer> {
      * 向索引位置插入
      */
     public void insert(int index,int value){
-        if(index == 0){
-            addFirst(value);
-            return;
-        }
         Node pre = findNode(index - 1);
         if(pre == null){
             throw illegalIndex(index);
@@ -234,9 +197,6 @@ public class SinglyLinkedList implements Iterable<Integer> {
      * @param index
      */
     public void remove(int index){
-        if(index == 0){
-            removeFirst();
-        }
         Node pre = findNode(index - 1);
         if(pre == null){
             throw illegalIndex(index);

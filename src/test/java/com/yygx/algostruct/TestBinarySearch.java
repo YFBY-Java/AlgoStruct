@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
-import static com.yygx.algostruct.binarySearch.BinarySearch.*;
+import static com.yygx.algostruct.algorithm.binarySearch.BinarySearch.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**

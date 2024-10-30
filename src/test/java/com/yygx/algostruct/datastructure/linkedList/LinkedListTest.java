@@ -1,7 +1,6 @@
 package com.yygx.algostruct.datastructure.linkedList;
 
 
-import com.yygx.algostruct.linkedList.SinglyLinkedList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

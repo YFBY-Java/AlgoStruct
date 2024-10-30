@@ -1,4 +1,4 @@
-package com.yygx.algostruct.array;
+package com.yygx.algostruct.datastructure.array;
 
 
 import org.springframework.util.StopWatch;
