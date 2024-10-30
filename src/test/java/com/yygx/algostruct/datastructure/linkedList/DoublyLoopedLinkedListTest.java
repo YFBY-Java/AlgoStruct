@@ -1,17 +1,19 @@
-package com.yygx.algostruct.linkedList;
+package com.yygx.algostruct.datastructure.linkedList;
 
-import com.yygx.algostruct.datastructure.linkedList.DoublyLoopedLinkedList;
+
+
+
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertNull;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
-class DoublyLoopedLinkedListTest {
+public class DoublyLoopedLinkedListTest {
 
     private DoublyLoopedLinkedList doublyLoopedLinkedListUnderTest;
 
@@ -21,12 +23,12 @@ class DoublyLoopedLinkedListTest {
     }
 
     @Test
-    void testIterator() {
+    public void testIterator() {
         assertEquals(List.of(5,4,3,2,1).iterator(), doublyLoopedLinkedListUnderTest.iterator());
     }
 
     @Test
-    void testAddFirst() {
+    public void testAddFirst() {
         // Setup
         // Run the test
         doublyLoopedLinkedListUnderTest.addFirst(1);
@@ -39,7 +41,7 @@ class DoublyLoopedLinkedListTest {
 
 
     @Test
-    void testAddLast() {
+    public void testAddLast() {
         // Setup
         // Run the test
         doublyLoopedLinkedListUnderTest.addLast(1);
@@ -52,7 +54,7 @@ class DoublyLoopedLinkedListTest {
 
 
     @Test
-    void testRemoveFirst() {
+    public void testRemoveFirst() {
         // Setup
         // Run the test
         doublyLoopedLinkedListUnderTest.addLast(1);
@@ -68,7 +70,7 @@ class DoublyLoopedLinkedListTest {
 
 
     @Test
-    void testRemoveLast() {
+    public void testRemoveLast() {
         // Setup
         // Run the test
         doublyLoopedLinkedListUnderTest.addLast(1);
@@ -83,7 +85,7 @@ class DoublyLoopedLinkedListTest {
 
 
     @Test
-    void testFindByValue() {
+    public void testFindByValue() {
         // Setup
         // Run the test
         doublyLoopedLinkedListUnderTest.addLast(1);
@@ -100,7 +102,7 @@ class DoublyLoopedLinkedListTest {
 
 
     @Test
-    void testRemoveByValue() {
+    public void testRemoveByValue() {
         // Setup
         // Run the test
         doublyLoopedLinkedListUnderTest.addLast(1);
