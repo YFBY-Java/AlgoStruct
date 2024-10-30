@@ -68,53 +68,78 @@ public class LeetCode15 {
 
 
     public static List<List<Integer>> threeSum3(int[] nums) {
-        Arrays.sort(nums); // 首先对数组进行排序，以便后续处理和去重
-        int length = nums.length; // 获取数组长度
-        List<List<Integer>> result = new ArrayList<>(); // 初始化结果列表，用于存储符合条件的三元组
+        // 对数组进行排序，方便后续的双指针操作
+        Arrays.sort(nums);
+        int length = nums.length;  // 数组的长度
+        List<List<Integer>> result = new ArrayList<>();  // 存储结果的列表
 
-        // 遍历数组，固定第一个数
-        for (int i = 0; i < nums.length; i++) {
-            // 跳过重复元素，以避免结果中出现重复的三元组
-            if (i > 0 && nums[i] == nums[i - 1]) continue;
+        // 遍历数组，寻找三元组
+        for (int i = 0; i < nums.length - 2; i++) {
+            // 跳过重复元素以避免重复的三元组
+            if(i > 0 && nums[i] == nums[i-1]) continue;
 
-            // 如果当前数加上后两个最小的数仍然大于负的第三个数，则无必要继续
-            if (nums[i] + nums[i + 1] > -nums[2]) break;
+            // 优化：如果当前数字与后面两个数字之和小于0，则可以结束当前循环
+            if(nums[i] + nums[i+1] > - nums[i+2]) break;
 
-            // 如果当前数大于负的后两个数的和，则无必要继续
-            if (nums[i] > -(nums[length - 1] + nums[length - 2])) continue;
+            // 优化：如果当前数字小于数组最后两个数的负和，则继续下一个循环
+            if(nums[i] < -(nums[length-1] + nums[length-2])) continue;
 
-            // 定义左右指针，左指针从当前数的下一个位置开始，右指针从数组末尾开始
+            // 使用双指针查找与当前数字的补数
             int left = i + 1, right = length - 1;
-
-            // 当左指针小于右指针时，执行循环
             while (left < right) {
-                // 计算两个指针所指向的数的和
+                // 计算当前两个指针的和
                 int sum = nums[left] + nums[right];
-
-                // 如果和等于当前固定的数的负值，说明找到了一个三元组
                 if (sum == -nums[i]) {
-                    // 将三元组添加到结果列表中
+                    // 找到一个三元组，将其添加到结果列表
                     result.add(Arrays.asList(nums[i], nums[left], nums[right]));
-
-                    // 移动左指针，并跳过重复元素
-                    left++;
+                    left++;  // 移动左指针
+                    // 跳过重复元素
                     while (left < right && nums[left] == nums[left - 1]) left++;
-
-                    // 移动右指针，并跳过重复元素
-                    right--;
+                    right--;  // 移动右指针
+                    // 跳过重复元素
                     while (right > left && nums[right] == nums[right + 1]) right--;
-                }
-                // 如果和大于当前固定数的负值，移动右指针以减小和
-                else if (sum + nums[i] > 0) {
+                } else if (sum + nums[i] > 0) {
+                    // 如果和大于0，说明右指针需要向左移动
                     right--;
-                }
-                // 如果和小于当前固定数的负值，移动左指针以增大和
-                else {
+                } else {
+                    // 如果和小于0，说明左指针需要向右移动
                     left++;
                 }
             }
         }
-        return result; // 返回所有找到的三元组
+        return result;  // 返回所有找到的三元组
+    }
+
+
+
+    public static List<List<Integer>> threeSum3test(int[] nums) {
+        // 先排序，用于去重
+        Arrays.sort(nums);
+        int length = nums.length;
+        List<List<Integer>> result = new ArrayList<>();
+        for (int i = 0; i < length - 2; i++) {
+            // 如果有重复的元素，跳过
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            if (nums[i] + nums[i + 1] > -nums[i + 2]) break;
+            if (nums[length - 1] + nums[length - 2] < -nums[i]) continue;
+
+            int left = i + 1, right = length - 1;
+            while (left < right) {
+                int sum = nums[left] + nums[right];
+                if (sum == -nums[i]) {
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    left++;
+                    while (left < right && nums[left] == nums[left - 1]) left++;
+                    right--;
+                    while (right > left && nums[right] == nums[right + 1]) right--;
+                } else if (sum < -nums[i]) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+        return result;
     }
 
 }
@@ -255,7 +280,7 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        int[] nums = { 0, 0, 0 };
+        int[] nums = {0, 0, 0};
         System.out.println(new Solution().threeSum(nums));
 
     }
