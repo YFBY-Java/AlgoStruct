@@ -2,7 +2,6 @@ package com.yygx.algostruct.linkedList;
 
 
 import java.util.Iterator;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -119,6 +118,29 @@ public class SinglyLinkedList implements Iterable<Integer> {
             consumer.accept(pointer.value);
         }
     }
+
+    public void loopRecursion(Consumer<Integer> before, Consumer<Integer> after){
+        recursion(head,before,after);
+    }
+
+    /**
+     * 递归遍历
+     * 函数调用自身来解决更小规模的问题。
+     * <p>递归通常用于分治策略，树结构遍历，动态规划等</p>
+     * <p>自己调用自己，如果说每个函数对应着一种解决方案，自己调用自己意味着解决方案是一样的（有规律的）</p>
+     * <p>每次调用，函数处理的数据会较上次缩减（子集），而且最后会缩减至无需继续递归</p>
+     * <p>内层函数调用（子集处理）完成，外层函数才算调用完成</p>
+     */
+    public void recursion(Node current, Consumer<Integer> before, Consumer<Integer> after){
+        if(current == null){
+            return;
+        }
+        int value = current.value;
+        before.accept(value);
+        recursion(current.next, before, after);
+        after.accept(value);
+    }
+
 
 
     /**

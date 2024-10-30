@@ -10,9 +10,8 @@ import java.util.List;
 public class LinkedListTest {
 
 
-
     @Test
-    public void test1(){
+    public void test1() {
         SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
         singlyLinkedList.addFirst(1);
         singlyLinkedList.addFirst(2);
@@ -29,9 +28,8 @@ public class LinkedListTest {
     }
 
 
-
     @Test
-    public void test2(){
+    public void test2() {
         SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
         singlyLinkedList.addFirst(1);
         singlyLinkedList.addFirst(2);
@@ -44,7 +42,7 @@ public class LinkedListTest {
     }
 
     @Test
-    public void test3(){
+    public void test3() {
         SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
         singlyLinkedList.addLast(1);
         singlyLinkedList.addLast(2);
@@ -52,9 +50,27 @@ public class LinkedListTest {
         singlyLinkedList.addLast(4);
 
         singlyLinkedList.addLast(5);
-        Assertions.assertIterableEquals(List.of(1,2,3,4,5), singlyLinkedList);
+        Assertions.assertIterableEquals(List.of(1, 2, 3, 4, 5), singlyLinkedList);
     }
 
+
+    /**
+     * 遍历
+     */
+    @Test
+    public void test4() {
+        SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
+        singlyLinkedList.addFirst(1);
+        singlyLinkedList.addFirst(2);
+        singlyLinkedList.addFirst(3);
+        singlyLinkedList.addFirst(4);
+
+        singlyLinkedList.loopRecursion(value -> {
+            System.out.println("before:" + value);
+        }, value -> {
+            System.out.println("after:" + value);
+        });
+    }
 
 
 }
