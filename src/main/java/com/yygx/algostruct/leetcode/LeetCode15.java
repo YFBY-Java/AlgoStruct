@@ -1,12 +1,9 @@
-package com.yygx.algostruct.test;
+package com.yygx.algostruct.leetcode;
 
 
-import java.lang.reflect.Array;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class LeetCode15 {
 
@@ -66,7 +63,6 @@ public class LeetCode15 {
     }
 
 
-
     public static List<List<Integer>> threeSum3(int[] nums) {
         // 对数组进行排序，方便后续的双指针操作
         Arrays.sort(nums);
@@ -76,13 +72,13 @@ public class LeetCode15 {
         // 遍历数组，寻找三元组
         for (int i = 0; i < nums.length - 2; i++) {
             // 跳过重复元素以避免重复的三元组
-            if(i > 0 && nums[i] == nums[i-1]) continue;
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
 
             // 优化：如果当前数字与后面两个数字之和小于0，则可以结束当前循环
-            if(nums[i] + nums[i+1] > - nums[i+2]) break;
+            if (nums[i] + nums[i + 1] > -nums[i + 2]) break;
 
             // 优化：如果当前数字小于数组最后两个数的负和，则继续下一个循环
-            if(nums[i] < -(nums[length-1] + nums[length-2])) continue;
+            if (nums[i] < -(nums[length - 1] + nums[length - 2])) continue;
 
             // 使用双指针查找与当前数字的补数
             int left = i + 1, right = length - 1;
@@ -111,7 +107,6 @@ public class LeetCode15 {
     }
 
 
-
     public static List<List<Integer>> threeSum3test(int[] nums) {
         // 先排序，用于去重
         Arrays.sort(nums);
@@ -136,6 +131,37 @@ public class LeetCode15 {
                     left++;
                 } else {
                     right--;
+                }
+            }
+        }
+        return result;
+    }
+
+
+    public static List<List<Integer>> threeSum3test2(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        int length = nums.length;
+        for (int i = 0; i < (length - 2); i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            if (nums[i] + nums[i + 1] + nums[i + 2] > 0) break;
+            if (nums[length - 1] + nums[length - 2] + nums[i] < 0) continue;
+
+            int left = i + 1, right = length - 1;
+            while (left < right) {
+                int sum = nums[left] + nums[right];
+                if (sum == -nums[i]) {
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    do left++; while (left < right && nums[left] == nums[left - 1]);
+                    do right--; while (right > left && nums[right] == nums[right + 1]);
+                    /*  do while 等同于：
+                    right--;
+                    while (right > left && nums[right] == nums[right + 1]) right--;
+                     */
+                } else if (sum > -nums[i]) {
+                    right--;
+                } else {
+                    left++;
                 }
             }
         }
