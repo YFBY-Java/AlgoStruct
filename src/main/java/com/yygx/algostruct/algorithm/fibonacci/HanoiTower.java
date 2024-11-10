@@ -51,6 +51,7 @@ public class HanoiTower {
         System.out.println(stopWatch.prettyPrint());
     }
 
+
     private static void print() {
         System.out.println("------------------");
         System.out.println("a:"+a);
