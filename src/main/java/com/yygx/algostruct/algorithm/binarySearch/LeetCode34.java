@@ -3,9 +3,6 @@ package com.yygx.algostruct.algorithm.binarySearch;
 import java.util.Arrays;
 
 /**
- * <p>
- * 注释：工具类
- * </p>
  * Author: <a href="https://github.com/YFBY-Java" target="_blank">吟风抱月</a>
  */
 public class LeetCode34 {

@@ -1,5 +1,7 @@
 package com.yygx.algostruct.leetcode;
 
+import java.util.List;
+
 /**
  * @version 1.0
  * @Copyright (c) 合思技术团队 https://www.hosecloud.com/
@@ -16,4 +18,33 @@ class ListNode {
         val = x;
         next = null;
     }
+
+    public ListNode(int val, ListNode node) {
+        this.val = val;
+        this.next = node;
+    }
+
+
+
+
+
+
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(64);
+        sb.append("[");
+        ListNode p = this;
+        while (p != null) {
+            sb.append(p.val);
+            if (p.next != null) {
+                sb.append(",");
+            }
+            p = p.next;
+        }
+        sb.append("]");
+        return sb.toString();
+//        return String.valueOf(this.val);
+    }
+
 }
