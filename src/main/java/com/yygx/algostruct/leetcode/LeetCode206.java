@@ -1,11 +1,7 @@
 package com.yygx.algostruct.leetcode;
 
 
-import com.yygx.algostruct.datastructure.linkedList.SinglyLinkedList;
-import com.yygx.algostruct.util.Utils;
-import org.apache.bcel.generic.ANEWARRAY;
 
-import java.util.List;
 
 /**
  * LeetCode206.反转链表
@@ -49,6 +45,45 @@ public class LeetCode206 {
     }
 
 
+    /**
+     * 反转链表方法4
+     * <p>
+     *     从链表每次拿到第二个节点，将其从链表断开，插入头部，直到为null
+     *     <p>设置指针，o1和o2，分别指向第一和第二节点</p>
+     *     <p>将o2节点从链表断开，即o1节点指向第三节点</p>
+     *     <p>o2节点链入链表头部</p>
+     *     <p>n1指向o2</p>
+     *     <p>o2指向o1的下一个节点</p>
+     * </p>
+     * @param head
+     * @return
+     */
+    public ListNode reverseList4(ListNode oldHead) {
+        // 空链表和只有一个节点，直接返回这个节点
+        if (oldHead == null || oldHead.next == null) {
+            return oldHead;
+        }
+        ListNode newHead = null;  // 新的链表头
+        ListNode tempHead = oldHead;  // 当前遍历节点
+
+        while (tempHead != null) {
+            ListNode nextNode = tempHead.next;  // 保存下一个节点
+            tempHead.next = newHead;  // 反转当前节点的指向
+            newHead = tempHead;  // 将新头节点指向当前节点
+            tempHead = nextNode;  // 移动到下一个节点
+        }
+
+        return newHead;  // 返回新的头节点
+    }
+
+
+
+
+    /**
+     * 反转链表，递归
+     * @param point
+     * @return
+     */
     public ListNode reverseListRecursion(ListNode point){
         if(point.next == null) return point;  // 表示找到最后一个节点
         ListNode lastNode = reverseListRecursion(point.next);
@@ -100,6 +135,9 @@ public class LeetCode206 {
 
         ListNode reverseList = leetCode206.reverseListRecursion(o1);
         System.out.println(reverseList);
+
+        ListNode reverseList2 = leetCode206.reverseList4(reverseList);
+        System.out.println(reverseList2);
 
     }
 }
