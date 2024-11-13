@@ -78,6 +78,40 @@ public class LeetCode206 {
 
 
 
+    public ListNode reverseList5(ListNode head){
+        if(head == null || head.next == null) return head;
+        // 定义一个空的 ListNode n1，作为新的头节点
+        ListNode n1 = null;
+        // 遍历链表，直到 head 为 null，表示已经遍历到链表的末尾
+        while (head != null){
+            // 保存当前节点的下一个节点，防止链表断裂
+            ListNode next = head.next;
+            // 将当前节点的 next 指向 n1，相当于将当前节点插入到新的链表的前端
+            head.next = n1;
+            // 更新 n1 为当前节点，作为新的链表头
+            n1 = head;
+            // 继续遍历下一个节点
+            head = next;
+        }
+        // 返回反转后的链表头节点
+        return n1;
+    }
+
+
+    public ListNode reverseList6(ListNode head){
+        ListNode pre = null;  // 前驱节点
+        ListNode current = head;  // 记录当前节点
+        while (head != null){
+            head = head.next;   // 移动节点
+            current.next = pre;   // 当前节点
+            pre = current;    // 前驱指向当前
+            current = head;   // 当前指向head
+        }
+        return pre;  // 返回前驱
+    }
+
+
+
 
     /**
      * 反转链表，递归
@@ -138,6 +172,11 @@ public class LeetCode206 {
 
         ListNode reverseList2 = leetCode206.reverseList4(reverseList);
         System.out.println(reverseList2);
+
+
+        ListNode node = leetCode206.reverseList5(reverseList2);
+        System.out.println(node);
+
 
     }
 }
