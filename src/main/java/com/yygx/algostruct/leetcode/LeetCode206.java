@@ -55,7 +55,7 @@ public class LeetCode206 {
      *     <p>n1指向o2</p>
      *     <p>o2指向o1的下一个节点</p>
      * </p>
-     * @param head
+     * @param
      * @return
      */
     public ListNode reverseList4(ListNode oldHead) {
