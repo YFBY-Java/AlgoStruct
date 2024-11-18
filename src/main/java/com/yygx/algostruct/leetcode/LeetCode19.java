@@ -83,6 +83,24 @@ public class LeetCode19 {
     }
 
 
+
+    public ListNode removeNthFromEndRecursion(ListNode head,int n){
+        ListNode dummy = new ListNode(-1,head);
+        recursion(dummy,n);
+        return dummy.next;
+    }
+
+    private int recursion(ListNode node, int n) {
+        if(node == null) return 0;
+        int nWhere = recursion(node.next,n);
+        if(nWhere == n){   // 这里倒数第n个返回出来，之后进入到倒数第n+1的方法里进行的删除
+            node.next = node.next.next;
+        }
+        // 因为是删除倒数的元素，所以先递归，后返回，这样实现从后面开始计数
+        return nWhere + 1;
+    }
+
+
     public static void main(String[] args) {
         ListNode node1 = new ListNode(1);
         ListNode node2 = new ListNode(2);
@@ -99,7 +117,7 @@ public class LeetCode19 {
         node5.next = node6;
         node6.next = node7;
 
-        ListNode node = new LeetCode19().removeNthFromEndPointTwo(node1, 1);
+        ListNode node = new LeetCode19().removeNthFromEndRecursion(node1, 1);
         while (node != null){
             System.out.println(node.val);
             node = node.next;
