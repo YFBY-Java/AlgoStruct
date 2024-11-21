@@ -1,9 +1,7 @@
 package com.yygx.algostruct.leetcode;
 
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * LeetCode23.合并K个升序链表
@@ -28,7 +26,7 @@ public class LeetCode23 {
      * @param lists
      * @return
      */
-    public ListNode mergeKLists(ListNode[] lists) {
+    public ListNode mergeKListsInOrder(ListNode[] lists) {
         ListNode ans = null;
         for (ListNode list : lists) {
             ans = mergeTwoLists(ans, list);
@@ -36,24 +34,44 @@ public class LeetCode23 {
         return ans;
     }
 
-    public ListNode mergeTwoLists(ListNode a, ListNode b) {
-        if (a == null || b == null) {
-            return a != null ? a : b;
-        }
-        ListNode head = new ListNode(0);
-        ListNode tail = head, aPtr = a, bPtr = b;
-        while (aPtr != null && bPtr != null) {
-            if (aPtr.val < bPtr.val) {
-                tail.next = aPtr;
-                aPtr = aPtr.next;
-            } else {
-                tail.next = bPtr;
-                bPtr = bPtr.next;
+
+    /**
+     * 分治法合并，归并合并
+     * @param lists
+     * @return
+     */
+    public ListNode mergeKLists(ListNode[] lists) {
+        return merge(lists, 0, lists.length - 1);
+    }
+
+    private ListNode merge(ListNode[] lists, int start, int end) {
+        if(start == end) return lists[start];
+        if(start > end) return null;
+        int middle = (start + end) >> 1;
+        return mergeTwoLists(merge(lists,start,middle),merge(lists,middle+1,end));
+    }
+
+
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        // 新建一个链表，用于保存合并结果
+        ListNode newList = new ListNode(-1);
+        ListNode temp = newList;
+        while (list1 != null && list2 != null){
+            if(list1.val < list2.val){
+                temp.next = list1;
+                list1 = list1.next;
+            }else {
+                temp.next = list2;
+                list2 = list2.next;
             }
-            tail = tail.next;
+            temp = temp.next;
         }
-        tail.next = (aPtr != null ? aPtr : bPtr);
-        return head.next;
+        if(list1 == null){
+            temp.next = list2;
+        }else {
+            temp.next = list1;
+        }
+        return newList.next;
     }
 
 
