@@ -1,20 +1,12 @@
 package com.yygx.algostruct.leetcode;
 
-import java.util.List;
 
-/**
- * @version 1.0
- * @Copyright (c) 合思技术团队 https://www.hosecloud.com/
- * @authur：zhaojiawei zhaojiawei@hosecloud.com
- * @Package com.yygx.algostruct.leetcode
- * @Project：AlgoStruct
- * @date 2024/11/1 上午10:35
- */
-class ListNode {
+
+public class ListNode {
     int val;
     ListNode next;
 
-    ListNode(int x) {
+    public ListNode(int x) {
         val = x;
         next = null;
     }
@@ -46,5 +38,7 @@ class ListNode {
         return sb.toString();
 //        return String.valueOf(this.val);
     }
+
+
 
 }
