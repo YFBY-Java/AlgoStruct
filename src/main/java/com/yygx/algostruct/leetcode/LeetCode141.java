@@ -17,6 +17,21 @@ public class LeetCode141 {
             slow = slow.next;
             fast = fast.next.next;
         }
+        return true;
+    }
+
+
+    public boolean hasCycle2(ListNode head){
+        if(head == null || head.next == null) return false;
+        ListNode quick = head;
+        ListNode slow = head;
+        while (quick != null && quick.next != null){
+            quick = quick.next.next;
+            slow = slow.next;
+            if(quick == slow){
+                return true;
+            }
+        }
         return false;
     }
 
