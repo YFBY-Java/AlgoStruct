@@ -79,6 +79,48 @@ public class LeetCode234 {
         return result;
     }
 
+
+    /**
+     * 中间节点+反转链表
+     * @param head
+     * @return
+     */
+    public boolean isPalindrome3(ListNode head) {
+        // 参考反转链表+链表中间节点
+        // 新建一个链表反转前半部分
+        if(head == null) return false;
+        if(head.next == null) return true;
+        ListNode slow = head;
+        ListNode quick = head;
+        // 新链表，用于反转
+        ListNode pre = null;
+        ListNode current = head;
+        while(quick != null && quick.next != null){
+            slow = slow.next;
+            quick = quick.next.next;
+
+            // 反转链表
+            current.next = pre;
+            pre = current;
+            current = slow;
+        }
+        if(quick != null){
+            slow = slow.next;
+        }
+        while(pre != null){
+            if(pre.val != slow.val){
+                return false;
+            }
+            pre = pre.next;
+            slow = slow.next;
+        }
+        return true;
+    }
+
+
+
+
+
     private ListNode reverseList(ListNode secondHalfStart) {
         ListNode pre = null;
         while (secondHalfStart != null){
