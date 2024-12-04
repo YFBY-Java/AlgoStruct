@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RingArrayQueueTest {
+class ArrayRingQueueTest {
 
     /*@Test
     public void test() {
@@ -24,8 +24,8 @@ class RingArrayQueueTest {
 
     @Test
     public void generic() {
-        RingArrayQueue<String> queue =
-                new RingArrayQueue<>(3);
+        ArrayRingQueue<String> queue =
+                new ArrayRingQueue<>(3);
         queue.offer("a");
         queue.offer("b");
         queue.offer("c");
@@ -37,8 +37,8 @@ class RingArrayQueueTest {
 
     @Test
     public void offerLimit() {
-        RingArrayQueue<Integer> queue =
-                new RingArrayQueue<>(3);
+        ArrayRingQueue<Integer> queue =
+                new ArrayRingQueue<>(3);
         queue.offer(1);
         queue.offer(2);
         queue.offer(3);
@@ -51,7 +51,7 @@ class RingArrayQueueTest {
     @Test
     @DisplayName("测试删除只剩一个节点时")
     public void poll1() {
-        RingArrayQueue<Integer> queue = new RingArrayQueue<>(5);
+        ArrayRingQueue<Integer> queue = new ArrayRingQueue<>(5);
         queue.offer(1);
         assertEquals(1, queue.poll());
         assertTrue(queue.isEmpty());
@@ -59,7 +59,7 @@ class RingArrayQueueTest {
 
     @Test
     public void offer() {
-        RingArrayQueue<Integer> queue = new RingArrayQueue<>(5);
+        ArrayRingQueue<Integer> queue = new ArrayRingQueue<>(5);
         queue.offer(1);
         queue.offer(2);
         queue.offer(3);
@@ -71,7 +71,7 @@ class RingArrayQueueTest {
 
     @Test
     public void peek() {
-        RingArrayQueue<Integer> queue = new RingArrayQueue<>(5);
+        ArrayRingQueue<Integer> queue = new ArrayRingQueue<>(5);
         assertNull(queue.peek());
         queue.offer(1);
         assertEquals(1, queue.peek());
@@ -81,7 +81,7 @@ class RingArrayQueueTest {
 
     @Test
     public void poll() {
-        RingArrayQueue<Integer> queue = new RingArrayQueue<>(5);
+        ArrayRingQueue<Integer> queue = new ArrayRingQueue<>(5);
         queue.offer(1);
         queue.offer(2);
         queue.offer(3);
