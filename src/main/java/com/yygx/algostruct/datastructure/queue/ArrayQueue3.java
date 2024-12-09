@@ -16,8 +16,25 @@ public class ArrayQueue3<E> implements Queue<E>,Iterable<E> {
     private int tail = 0;
 
 
+    /**
+     *
+     * @param capacity 容量为离参数最近的（大于等于） 2的n次方
+     */
     @SuppressWarnings("all")   // 禁止警告产生
     public ArrayQueue3(int capacity){
+        // 容量不是2的n次方，抛异常
+//        if((capacity & capacity - 1) != 0){
+//            throw new IllegalArgumentException("capacity 必须是2的n次方");
+//        }
+
+        // 把容量改为离参数最近的（大于等于参数）的 2的n次方
+        capacity -= 1;
+        capacity |= capacity >> 1;
+        capacity |= capacity >> 2;
+        capacity |= capacity >> 4;
+        capacity |= capacity >> 8;
+        capacity |= capacity >> 16;
+        capacity += 1;
         array = (E[]) new Object[capacity];
     }
 
