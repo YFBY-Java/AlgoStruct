@@ -5,6 +5,12 @@ import java.util.Iterator;
 
 public class ArrayQueue3<E> implements Queue<E>,Iterable<E> {
 
+    /**
+     * 求模运算
+     * 如果除数是2的n次方
+     * 那么被除数的后n位即为余数
+     */
+
     private final E[] array;
     private int head = 0;
     private int tail = 0;
@@ -21,8 +27,11 @@ public class ArrayQueue3<E> implements Queue<E>,Iterable<E> {
         if(isFull()){
             return false;
         }
-        array[tail % array.length] = value;
-        tail++;
+        // 转成长整数求余 防止溢出
+//        array[(int) (Integer.toUnsignedLong(tail) % array.length)] = value;
+        // 减法优先级 大于 & (按位与)
+        array[tail & array.length - 1] = value;
+        tail++;   // tail自增超过int最大值会变为负数
         return true;
     }
 
@@ -31,7 +40,8 @@ public class ArrayQueue3<E> implements Queue<E>,Iterable<E> {
         if(isEmpty()){
             return null;
         }
-        E value = array[head % array.length];
+//        E value = array[(int) (Integer.toUnsignedLong(head) % array.length)];
+        E value = array[head & array.length - 1];
         head++;
         return value;
     }
@@ -41,7 +51,7 @@ public class ArrayQueue3<E> implements Queue<E>,Iterable<E> {
         if(isEmpty()){
             return null;
         }
-        return array[head % array.length];
+        return array[head & array.length - 1];
     }
 
     @Override
@@ -68,7 +78,7 @@ public class ArrayQueue3<E> implements Queue<E>,Iterable<E> {
 
             @Override
             public E next() {
-                E value = array[pointer % array.length];
+                E value = array[pointer & array.length - 1];
                 pointer++;
                 return value;
             }
