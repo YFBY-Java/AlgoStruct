@@ -65,4 +65,6 @@ public class TestBinarySearch {
         assertEquals(-1, binarySearchRightmost(a, 3));
         assertEquals(-1, binarySearchRightmost(a, 8));
     }
+
+    // 测试
 }

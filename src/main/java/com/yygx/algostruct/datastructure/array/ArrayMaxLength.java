@@ -9,11 +9,38 @@ package com.yygx.algostruct.datastructure.array;
 public class ArrayMaxLength {
 
     public static void main(String[] args) {
+        printMemoryInfo();
         findMaxIntSize();
-        findMaxByteSize();
+//        int[] test = new int[2092957692];
+        printMemoryInfo();
+//        findMaxByteSize();
 //        int n = 2147483646;
 //        byte[] test = new byte[n];
 //        System.out.println(n);
+
+
+
+//        printMemoryInfo();
+//        byte[] test1 = new byte[2147483645];
+//        System.out.println("-------------------------");
+//        printMemoryInfo();
+
+
+    }
+
+
+    private static void printMemoryInfo() {
+        System.out.println("-------------------");
+        Runtime runtime = Runtime.getRuntime();
+        long maxMemory = runtime.maxMemory();
+        long totalMemory = runtime.totalMemory();
+        long freeMemory = runtime.freeMemory();
+        long usedMemory = totalMemory - freeMemory;
+
+        System.out.println("最大内存: " + maxMemory / (1024 * 1024) + " MB");
+        System.out.println("已分配内存: " + totalMemory / (1024 * 1024) + " MB");
+        System.out.println("空闲内存: " + freeMemory / (1024 * 1024) + " MB");
+        System.out.println("已使用内存: " + usedMemory / (1024 * 1024) + " MB");
     }
 
     public static void findMaxIntSize() {
