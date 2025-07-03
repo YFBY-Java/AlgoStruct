@@ -13,6 +13,9 @@ public class InfixExpression {
           优先级比栈顶运算符高，入栈
           否则把栈里优先级 >= 这个操作符的都出栈，再把这个操作符入栈
     3.遍历完成，栈里剩余元素依次出栈
+    4. 带()
+        左括号 直接入栈，左括号优先级最低
+        右括号把栈内元素依次弹出，直到遇到左括号停止
      */
 
 
@@ -20,6 +23,7 @@ public class InfixExpression {
         return switch (c) {
             case '*', '/' -> 2;
             case '+', '-' -> 1;
+            case '(' -> 0;
             default -> throw new IllegalArgumentException("参数错误");
         };
     }
@@ -53,6 +57,17 @@ public class InfixExpression {
                         }
                     }
                 }
+                case '(' -> {
+                    stack.push(c);
+                }
+                case ')' -> {
+                    // 把操作符依次弹出，直到遇到左括号
+                    while (!stack.isEmpty() && stack.peek() != '('){
+                        Character pop = stack.pop();
+                        stringBuilder.append(pop);
+                    }
+                    stack.pop(); // 移除左括号
+                }
                 // 如果是操作数（数字或变量），直接追加到输出
                 default -> stringBuilder.append(c);
             }
@@ -72,5 +87,7 @@ public class InfixExpression {
         System.out.println(infixExpression.infixExpression("1+2*3-4/5*6"));
         System.out.println(infixExpression.infixExpression("1+2*3-4/5*6+7"));
         System.out.println(infixExpression.infixExpression("1+2*3-4/5*6+7-8"));
+
+        System.out.println(infixExpression.infixExpression("1+2*3-4/5*6+7-8*(9+10)"));
     }
 }
