@@ -27,7 +27,13 @@ public class ArrayDequeTest {
         arrayDeque.offerLast(1);
         arrayDeque.offerLast(2);
         arrayDeque.offerLast(3);
+
+        assertEquals(3,arrayDeque.peekLast());
+
         arrayDeque.offerFirst(4);
+
+        assertEquals(4,arrayDeque.peekFirst());
+
         arrayDeque.offerFirst(5);
         arrayDeque.offerFirst(6);
         arrayDeque.offerFirst(7);
