@@ -34,6 +34,16 @@ public class LeetCode9 {
     }
 
 
+    public boolean isPalindrome2(int x){
+        // 负数不是回文数
+        if(x<0){
+            return false;
+        }
+        StringBuilder str = new StringBuilder(String.valueOf(x)).reverse();
+        return Long.parseLong(str.toString()) == x;
+    }
+
+
 
 
     public static void main(String[] args) {
