@@ -2,6 +2,11 @@ package com.yygx.algostruct.leetcode;
 
 
 import com.yygx.algostruct.datastructure.stack.ArrayStack;
+import org.checkerframework.checker.units.qual.C;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
 
 /**
  * LeetCode20.有效的括号
@@ -43,5 +48,32 @@ public class LeetCode20 {
         return stack.isEmpty();
     }
 
+
+
+    public boolean isValid2(String s) {
+        // 定义一个栈,用来暂存左括号
+        Stack<Character> stack = new Stack<>();
+        // 转成字符串数组
+        char[] array = s.toCharArray();
+        // 定义一个map
+        Map<Character, Character> map = new HashMap<>();
+        map.put('(',')');
+        map.put('{','}');
+        map.put('[',']');
+        for (char c : array) {
+            if (map.containsKey(c)){  // 存在键，说明当前括号为左括号
+                stack.push(c);
+            }else {
+                if(stack.isEmpty()){
+                    return false;
+                }
+                Character value = map.get(stack.pop());
+                if(value != c){
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
 
 }
