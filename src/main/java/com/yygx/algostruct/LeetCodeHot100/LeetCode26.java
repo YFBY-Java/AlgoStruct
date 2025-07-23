@@ -11,16 +11,24 @@ public class LeetCode26 {
 
 
     public int removeDuplicates(int[] nums) {
-        // 返回数组的长度
+        // resultLen 用于记录去重后的数组长度
         int resultLen = 0;
+        // currentNum 用于存储当前去重数组中最新的元素，初始为 Integer.MAX_VALUE
+        // 这个值不会与输入数组中的任何元素相等
         int currentNum = Integer.MAX_VALUE;
+        // 遍历数组，检查是否有重复元素
         for (int i = 0; i < nums.length; i++) {
-            if(nums[i] != currentNum){
+            // 如果当前元素不等于当前去重数组中的最后一个元素
+            if (nums[i] != currentNum) {
+                // 将当前元素放到去重数组中的相应位置
                 nums[resultLen] = nums[i];
+                // 更新 currentNum 为最新的去重元素
                 currentNum = nums[resultLen];
+                // 增加去重数组的长度
                 resultLen++;
             }
         }
+        // 返回去重后的数组长度
         return resultLen;
     }
 
@@ -43,6 +51,25 @@ public class LeetCode26 {
 
         // 返回去重后的数组长度，注意慢指针从 0 开始，所以要加 1
         return slowIndex + 1;
+    }
+
+
+
+
+
+
+    public int removeDuplicates3(int[] nums) {
+        // 定义当前长度
+        int resultLen = 0;
+        int current = Integer.MAX_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            if(nums[i] != current){
+                nums[resultLen] = nums[i];
+                current = nums[resultLen];
+                resultLen++;
+            }
+        }
+        return resultLen;
     }
 
 
