@@ -1,6 +1,8 @@
 package com.yygx.algostruct.leetcode;
 
 
+import java.util.LinkedList;
+
 /**
  * LeetCode.21合并两个有序链表
  * <p>
@@ -48,6 +50,30 @@ public class LeetCode21 {
             return p2;
         }
     }
+
+
+    public ListNode mergeTwoLists2(ListNode list1, ListNode list2) {
+        // 新建一个链表，用来保存合并结果
+        ListNode newList = new ListNode(-1);
+        ListNode temp = newList;
+        while (list1 != null && list2 != null){
+            if (list1.val > list2.val){
+                temp.next = list2;
+                list2 = list2.next;
+            }else {
+                temp.next = list1;
+                list1 = list1.next;
+            }
+            temp = temp.next;
+        }
+        if(list1 != null) {
+            temp.next = list1;
+        }else {
+            temp.next = list2;
+        }
+        return newList.next;
+    }
+
 
 
     public static void main(String[] args) {
