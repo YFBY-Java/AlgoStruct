@@ -2,6 +2,7 @@ package com.yygx.algostruct.LeetCodeHot100;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -53,11 +54,39 @@ public class LeetCode15 {
     }
 
 
-//    public List<List<Integer>> threeSumTest(int[] nums) {
-//        // 创建一个三元组，用来存储最终返回数据
-//
-//
-//    }
+    public List<List<Integer>> threeSum2(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();  // 用来存储结果
+        int n = nums.length;
+        // 1. 对数组进行排序
+        Arrays.sort(nums);
+        // 优化后的三重循环
+        for (int i = 0; i < n - 2; i++) { // 确保至少还有两个元素在i后面
+            // 优化：跳过重复的i元素，避免生成重复的三元组
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            for (int j = i + 1; j < n - 1; j++) { // j从i的下一个位置开始
+                // 优化：跳过重复的j元素
+                if (j > i + 1 && nums[j] == nums[j - 1]) {
+                    continue;
+                }
+                for (int k = j + 1; k < n; k++) { // k从j的下一个位置开始
+                    // 优化：跳过重复的k元素
+                    if (k > j + 1 && nums[k] == nums[k - 1]) {
+                        continue;
+                    }
+                    if (nums[i] + nums[j] + nums[k] == 0) {
+                        List<Integer> triplet = new ArrayList<>();
+                        triplet.add(nums[i]);
+                        triplet.add(nums[j]);
+                        triplet.add(nums[k]);
+                        result.add(triplet);
+                    }
+                }
+            }
+        }
+        return result;
+    }
 
 
 
