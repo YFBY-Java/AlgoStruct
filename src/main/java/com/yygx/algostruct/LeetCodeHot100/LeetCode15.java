@@ -89,21 +89,151 @@ public class LeetCode15 {
     }
 
 
+    public List<List<Integer>> threeSum3(int[] nums) {
+        //定义一个三元组，用于存储返回数据
+        List<List<Integer>> result = new ArrayList<>();
+        // 循环三层
+        for (int i = 0; i < nums.length - 2; i++) {
+            for (int j = 0; j < nums.length - 1; j++) {
+                for (int k = 0; k < nums.length; k++) {
+                    if (i == j || i == k || j == k) {
+                        continue;
+                    }
+                    if (nums[i] + nums[j] + nums[k] != 0) {
+                        continue;
+                    }
+                    List<Integer> tree = Arrays.asList(nums[i], nums[j], nums[k]);
+                    tree.sort(null); // 排序
+                    if (result.contains(tree)) {
+                        break;
+                    } else {
+                        result.add(tree);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+
+    // 暴力解法
+    public List<List<Integer>> threeSum4(int[] nums) {
+        // 定义一个三元组，用来存储最中结果
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        System.out.println(Arrays.toString(nums));
+        // 三层暴力循环
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (nums[i] > 0) break;
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            for (int j = 0; j < nums.length - 1; j++) {
+                for (int k = 0; k < nums.length; k++) {
+                    if (i == j || i == k || j == k) {
+                        continue;
+                    }
+                    if (nums[i] + nums[j] + nums[k] != 0) {
+                        continue;
+                    }
+                    List<Integer> tree = Arrays.asList(nums[i], nums[j], nums[k]);
+                    tree.sort(null);
+                    if (result.contains(tree)) {  // 判断结果集中是否存在当前三元组，存在直接推出本层循环
+                        continue;
+                    }
+                    result.add(tree);
+                }
+            }
+        }
+        return result;
+    }
+
+
+    // 双指针
+    public List<List<Integer>> threeSumDualPointers(int[] nums) {
+        // 定义一个结果集
+        List<List<Integer>> result = new ArrayList<>();
+        // 排序
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (nums[i] > 0)
+                break;
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+            int left = i + 1;
+            int right = nums.length - 1;
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+                if (sum == 0) {
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    // 跳过和被加入到结果集中的 左右指针 相同的元素，因为i是确定的，那么这个左右指针的组合 就可以不再二次检查了
+                    while (left < right && nums[left] == nums[left + 1]) left++;
+                    while (left < right && nums[right] == nums[right - 1]) right--;
+                }
+                if (sum > 0) {
+                    right--;
+                } else {   // sum为0时也需要将左指针右移
+                    left++;
+                }
+            }
+        }
+        return result;
+    }
+
+
+    // 双指针
+    public List<List<Integer>> threeSumDualPointers2(int[] nums) {
+        // 定义一个结果集
+        List<List<Integer>> result = new ArrayList<>();
+        // 排序
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (nums[i] > 0) break;
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            int left = i + 1;
+            int right = nums.length - 1;
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+                if (sum == 0) {  // 加入到结果集，并让左右指针跳过此组合的元素
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    while (left < right && nums[left] == nums[left + 1]) left++;
+                    while (left < right && nums[right] == nums[right - 1]) right--;
+                }
+                if (sum > 0) {
+                    right--;
+                } else {
+                    left++;
+                }
+            }
+        }
+        return result;
+    }
+
 
     // 示例用法（可选，用于测试）
     public static void main(String[] args) {
+//        LeetCode15 leetCode15 = new LeetCode15();
+//        int[] nums1 = {-1, 0, 1, 2, -1, -4};
+//        List<List<Integer>> result1 = leetCode15.threeSum(nums1);
+//        System.out.println("示例1结果: " + result1); // 预期输出：[[-1, -1, 2], [-1, 0, 1]]
+//
+//        int[] nums2 = {0, 1, 1};
+//        List<List<Integer>> result2 = leetCode15.threeSum(nums2);
+//        System.out.println("示例2结果: " + result2); // 预期输出：[]
+//
+//        int[] nums3 = {0, 0, 0};
+//        List<List<Integer>> result3 = leetCode15.threeSum(nums3);
+//        System.out.println("示例3结果: " + result3); // 预期输出：[[0, 0, 0]]
+
+        // [0,0,0]
+//        int[] nums = {0, 0, 0};
+        // [-1,0,1,2,-1,-4]
+        int[] nums = {-1, 0, 1, 2, -1, -4};
+        // [-2,0,1,1,2]
+//        int[] nums = {-2, 0, 1, 1, 2};
+        // [2,-3,0,-2,-5,-5,-4,1,2,-2,2,0,2,-4,5,5,-10]
+//        int[] nums = {2, -3, 0, -2, -5, -5, -4, 1, 2, -2, 2, 0, 2, -4, 5, 5, -10};
         LeetCode15 leetCode15 = new LeetCode15();
-        int[] nums1 = {-1, 0, 1, 2, -1, -4};
-        List<List<Integer>> result1 = leetCode15.threeSum(nums1);
-        System.out.println("示例1结果: " + result1); // 预期输出：[[-1, -1, 2], [-1, 0, 1]]
-
-        int[] nums2 = {0, 1, 1};
-        List<List<Integer>> result2 = leetCode15.threeSum(nums2);
-        System.out.println("示例2结果: " + result2); // 预期输出：[]
-
-        int[] nums3 = {0, 0, 0};
-        List<List<Integer>> result3 = leetCode15.threeSum(nums3);
-        System.out.println("示例3结果: " + result3); // 预期输出：[[0, 0, 0]]
+        List<List<Integer>> result = leetCode15.threeSumDualPointers(nums);
+        System.out.println("示例3结果: " + result);
     }
 
 }
