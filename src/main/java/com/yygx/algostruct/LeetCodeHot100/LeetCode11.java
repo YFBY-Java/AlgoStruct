@@ -81,6 +81,34 @@ public class LeetCode11 {
     }
 
 
+
+
+    // 移动较低的墙
+    public int maxAreaTest(int[] height) {
+        // 定义左右指针（左右墙体）   和最大面积
+        int left = 0;
+        int right = height.length - 1;
+        int maxArea = 0;
+        while (left < right){
+            int high = Math.min(height[left],height[right]);
+            int area = area(left, right, high);
+            maxArea = Math.max(maxArea,area);
+            // 移动较矮的墙，只有遇到比埃墙高的墙，围成的面积才可能更大
+            while (left < right && height[left] <= high) {
+                left++;
+            }
+            while (left < right && height[right] <= high){
+                right--;
+            }
+        }
+        return maxArea;
+    }
+
+
+
+
+
+
     public static void main(String[] args) {
         // [1,8,6,2,5,4,8,3,7]
 
