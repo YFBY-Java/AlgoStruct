@@ -42,11 +42,37 @@ public class LeetCode56 {
     }
 
 
+
+    public int[][] mergeTest(int[][] intervals) {
+        if( intervals == null || intervals.length == 0) return new int[0][];
+        if(intervals.length == 1) return intervals;
+        Arrays.sort(intervals, (interval1, interval2) -> interval1[0] - interval2[0]);
+
+        // 定义返回结果
+        List<int[]> result = new ArrayList<>();
+        result.add(intervals[0]);
+        for(int i = 1;i < intervals.length; i++){
+            int[] nums = intervals[i];
+            int[] last = result.get(result.size() - 1);
+            if(nums[0] > last[1]) {
+                result.add(nums);
+            }else if(nums[1] < last[0]) {
+                result.add(nums);
+            }else {
+                if(nums[0] < last[0]) last[0] = nums[0];
+                if(nums[1] > last[1]) last[1] = nums[1];
+            }
+        }
+        return result.toArray(new int[0][]);
+    }
+
+
+
     public static void main(String[] args) {
         // [[1,3],[2,6],[8,10],[15,18]]
         int[][] intervals = {{1, 3}, {2, 6}, {8, 10}, {15, 18}};
         LeetCode56 leetCode56 = new LeetCode56();
-        System.out.println(Arrays.deepToString(leetCode56.merge(intervals)));
+        System.out.println(Arrays.deepToString(leetCode56.mergeTest(intervals)));
     }
 
 
