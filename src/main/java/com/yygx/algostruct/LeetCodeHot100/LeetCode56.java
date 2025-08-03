@@ -170,6 +170,36 @@ public class LeetCode56 {
     }
 
 
+
+
+
+    public int[][] mergeTest3(int[][] intervals) {
+        if(intervals == null || intervals.length == 0) return new int[0][];
+        if(intervals.length == 1) return intervals;
+        // 排序，使用选择器对数组 按照子数组的第一个元素的大小排序
+        Arrays.sort(intervals,Comparator.comparingInt(a -> a[0]));
+
+        // 定义返回数据
+        List<int[]> result = new ArrayList<>();
+        result.add(intervals[0]);
+        int[] ints = result.get(0);
+        for (int i = 1; i < intervals.length; i++) {
+            int[] interval = intervals[i];
+            if(interval[1] < ints[0] || interval[0] > ints[1]){
+                result.add(interval);
+                ints = interval;
+            }else {
+                if(interval[0] < ints[0]) ints[0] = interval[0];
+                if(interval[1] > ints[1]) ints[1] = interval[1];
+            }
+        }
+        return result.toArray(new int[0][]);
+    }
+
+
+
+
+
     public static void main(String[] args) {
         // [[1,3],[2,6],[8,10],[15,18]]
 //        int[][] intervals = {{1, 3}, {2, 6}, {8, 10}, {15, 18}};
