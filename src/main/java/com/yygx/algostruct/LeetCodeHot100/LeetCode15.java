@@ -1,6 +1,7 @@
 package com.yygx.algostruct.LeetCodeHot100;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -265,9 +266,44 @@ public class LeetCode15 {
                         right--;
                     }
                 }
-                if(sum > 0){
+                if (sum > 0) {
                     right--;  // 如果比0大右指针左移
-                }else {
+                } else {
+                    left++;
+                }
+            }
+        }
+        return result;
+    }
+
+
+    public List<List<Integer>> threeSum5Test(int[] nums) {
+        // 定义结果集
+        List<List<Integer>> result = new ArrayList<>();
+        // 排序，方便去重和双指针遍历
+        Arrays.sort(nums);
+        // 遍历
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (nums[i] > 0) break;
+            if (i > 0 && nums[i] == nums[i - 1]) continue;  // 跟前一个元素重复
+            // 定义左右指针
+            int left = i + 1;
+            int right = nums.length - 1;
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+                if (sum == 0) {
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    // 去重
+                    while (left < right && nums[left] == nums[left + 1]) {
+                        left++;
+                    }
+                    while (left < right && nums[right] == nums[right - 1]) {
+                        right--;
+                    }
+                }
+                if (sum > 0) {
+                    right--;
+                } else {
                     left++;
                 }
             }
