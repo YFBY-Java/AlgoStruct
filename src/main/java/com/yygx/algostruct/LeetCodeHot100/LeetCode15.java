@@ -238,6 +238,44 @@ public class LeetCode15 {
     }
 
 
+    public List<List<Integer>> threeSum4Test(int[] nums) {
+        // 定义一个结果集，用来存储结果数组
+        List<List<Integer>> result = new ArrayList<>();
+        // 排序，方便去重和双指针遍历
+        Arrays.sort(nums);
+
+        //遍历数组
+        for (int i = 0; i < nums.length - 2; i++) {
+            // 当前元素大于0，说明后续组合全部大于0
+            if (nums[i] > 0) break;
+            // 跳过重复元素
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            // 定义左右指针
+            int left = i + 1;
+            int right = nums.length - 1;
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+                if (sum == 0) {
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    // 跳过相同元素
+                    while (left < right && nums[left] == nums[left + 1]) {
+                        left++;
+                    }
+                    while (left < right && nums[right] == nums[right - 1]) {
+                        right--;
+                    }
+                }
+                if(sum > 0){
+                    right--;  // 如果比0大右指针左移
+                }else {
+                    left++;
+                }
+            }
+        }
+        return result;
+    }
+
+
     // 示例用法（可选，用于测试）
     public static void main(String[] args) {
 //        LeetCode15 leetCode15 = new LeetCode15();
