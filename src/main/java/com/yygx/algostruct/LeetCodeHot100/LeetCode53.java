@@ -55,5 +55,23 @@ public class LeetCode53 {
 
 
 
+    public int maxSubArrayTest(int[] nums){
+        // 定义一个 从某个元素到当前元素的前一个元素的累加和，初始为0
+        int pre = 0;
+        // 定义最大的累加和
+        int maxSub = nums[0];
+        for (int num : nums) {
+            // 判断当前元素是否比 前面几个元素 + 当前元素  大
+            // 如果大于前面几个累加和，说明前面几个累加起来是负数，不如从当前元素开始计算
+            pre = Math.max(pre + num,num);
+            maxSub = Math.max(maxSub,pre);  // 更新最大的连续子数组和
+        }
+        return  maxSub;
+    }
+
+
+
+
+
 
 }
