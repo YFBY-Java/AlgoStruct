@@ -1,6 +1,7 @@
 package com.yygx.algostruct.leetcode;
 
 
+import com.lmax.disruptor.SleepingWaitStrategy;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -57,7 +58,60 @@ public class LeetCode3 {
     }
 
 
-    @Test
+
+    public int lengthOfLongestSubstringTest(String s) {
+        // 无重复的最长字串
+        // 定义一个set
+        Set<Character> set = new HashSet<>();
+        // 定义左右指针
+        int left = 0; int right = 0;
+        // 定义 当前字串长度 和 最大字串长度
+        int currentLen = 0; int maxLen = 0;
+        while (right < s.length()){
+            char c = s.charAt(right);   // 获取当前右指针指向的元素
+            if(set.contains(c)){    // 判断当前元素是否重复
+                set.remove(s.charAt(left));   // 依次移除重复元素左边的元素，直到把那重复的元素移除
+                left++;
+            }else {
+                set.add(c);   // 不存在，加入set
+                right++;
+            }
+            currentLen = right - left;   // 计算当前长度
+            maxLen = Math.max(currentLen,maxLen);   // 比较最大长度
+        }
+        return maxLen;
+    }
+
+
+    public int lengthOfLongestSubstringTest2(String s) {
+        // 无重复的最大连续字串
+        // 定义一个set
+        Set<Character> set = new HashSet<>();
+        // 定义左右指针、当前字串长度、最大字串长度
+        int left = 0;int right = 0;int currentLen = 0;int maxLen = 0;
+        while (right < s.length()){
+            char c = s.charAt(right);
+            if(set.contains(c)){
+                // 依次移除左侧元素，直到把重复的元素移除
+                set.remove(s.charAt(left));
+                left++;
+            }else {
+                right++;
+                set.add(c);
+            }
+            currentLen = right - left;
+            maxLen = Math.max(maxLen,currentLen);
+        }
+        return maxLen;
+    }
+
+
+
+
+
+
+
+        @Test
     public void test() {
         String s = "aab";
         System.out.println(lengthOfLongestSubstring(s));
