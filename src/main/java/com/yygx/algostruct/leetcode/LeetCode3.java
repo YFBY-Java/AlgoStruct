@@ -2,6 +2,7 @@ package com.yygx.algostruct.leetcode;
 
 
 import com.lmax.disruptor.SleepingWaitStrategy;
+import org.checkerframework.checker.units.qual.C;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -104,6 +105,65 @@ public class LeetCode3 {
         }
         return maxLen;
     }
+
+
+    //  无重复字符串的最长字串
+    public int lengthOfLongestSubstringTest3(String s) {
+        // 滑动窗口，移动左右指针
+        // 定义一个set
+        Set<Character> set = new HashSet<>();
+        // 定义左右指针，定义当前子串长度和最大字串长度
+        int left = 0; int right = 0; int currentLen = 0; int maxLen = 0;
+        while (right < s.length()){
+            char c = s.charAt(right);
+            if(set.contains(c)){
+                // 将左指针指向的元素依次移除，直到移除重复的字符
+                set.remove(s.charAt(left));
+                left++;
+            }else {
+                right++;
+                set.add(c);
+            }
+            currentLen = right - left;
+            maxLen = Math.max(maxLen,currentLen);
+        }
+        return maxLen;
+    }
+
+
+
+
+
+    public int lengthOfLongestSubstringTest4(String s) {
+        //  无重复最长子串   滑动窗口
+        // 定义一个set，用来记录出现过的字符，和判断是否重复
+        Set<Character> set = new HashSet<>();
+        // 定义左右指针，当前子串长度，最大子串长度
+        int left = 0; int right = 0; int currentLen = 0; int maxLen = 0;
+        while (right < s.length()){
+            char c = s.charAt(right);
+            if(set.contains(c)){
+                set.remove(s.charAt(left));
+                left++;
+            }else {
+                set.add(c);
+                right++;
+            }
+            currentLen = right - left;
+            maxLen = Math.max(currentLen,maxLen);
+        }
+        return maxLen;
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 
