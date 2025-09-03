@@ -79,6 +79,7 @@ public class LeetCode394 {
 
     // 3[a2[c]]
     public String decodeStringTest(String s) {
+        // 双栈法， 一个计数栈，一个字符栈
         Stack<String> stack = new Stack<>();
         Stack<Integer> stackNum = new Stack<>();
         // 定义一个 num 表示当前的数字，定义一个 StringBuilder用来记录当前的字符串
@@ -87,37 +88,61 @@ public class LeetCode394 {
         char[] charArray = s.toCharArray();
         for (char c : charArray) {
             if (Character.isDigit(c)) {
-                num = num * 10 + (c - '0');
-            } else if (c == '[') {
-                stackNum.push(num);
-                stack.push(String.valueOf(c));
-                // 重置
-                num = 0;
-                stringBuilder = new StringBuilder();
-            } else if (c == ']') {
-                while (!"[".equals(stack.peek())) {
+                num = num * 10 + (c - '0');    // 计算当前数字
+            } else if (c == '[') {   // 一个数字对应一个左括号，遇到左括号时数字入栈
+                stackNum.push(num);  // 数字入栈
+                stack.push(String.valueOf(c));   // 括号入栈
+                num = 0;  // // 重置数字
+            } else if (c == ']') {   // 遇到右括号时把字符出栈组合，并把数字出栈一个，进行重复
+                while (!"[".equals(stack.peek())) {   // 不是左括号说明还有 字符
                     String pop = stack.pop();
-                    stringBuilder.insert(0, pop);
+                    stringBuilder.insert(0, pop);   // StringBuilder的 insert方法，从索引0的位置插入
                 }
-                int popNum = stackNum.pop();
-                stack.pop();
+                int popNum = stackNum.pop();   // 出栈已经用过的数字
+                stack.pop();  // 弹出左括号
+                // String 的 repeat 方法，把字符串重复 n 次
                 String repeat = stringBuilder.toString().repeat(popNum);
-                stack.push(repeat);
-                stringBuilder = new StringBuilder();
+                stack.push(repeat); // 把重复后的字符串放回栈中
+                stringBuilder = new StringBuilder();  // 重置 用来组合的 StringBuilder对象
             } else {
-                stack.push(String.valueOf(c));
+                stack.push(String.valueOf(c));  // 字母直接入栈
             }
         }
-        if (stackNum.isEmpty()) {
-            while (!stack.isEmpty()) {
+        if (stackNum.isEmpty()) {  // 数字栈空 说明 不是 2[2a[2a]] 的结构，而是 2[a]2[a]的结构
+            while (!stack.isEmpty()) {   // 2[a]2[a]的结构  最后在字符栈中会有多个元素，需要遍历
                 String pop = stack.pop();
-                stringBuilder.insert(0, pop);
+                stringBuilder.insert(0, pop);  // 依次出栈进行拼接
             }
             return String.valueOf(stringBuilder);
         } else {
+            // 数字栈有元素，说明是 2[2a[2a]] 的结构，直接弹出两个栈元素进行重复
             return stack.pop().repeat(stackNum.pop());
         }
     }
+
+
+
+
+    public String decodeStringTest2(String s) {
+        //双栈法，数字栈和字母栈
+        Stack<String> stackStr = new Stack<>();
+        Stack<Integer> stackNum = new Stack<>();
+        // 定义用来暂存字母组合
+        StringBuilder stringBuilder = new StringBuilder();
+        char[] charArray = s.toCharArray();
+        for (char c : charArray) {
+            if(Character.isDigit(c)){  // 数字直接进行拼接，然后进入数字栈
+
+            }
+        }
+
+        return null;
+    }
+
+
+
+
+
 
 
     public static void main(String[] args) {
