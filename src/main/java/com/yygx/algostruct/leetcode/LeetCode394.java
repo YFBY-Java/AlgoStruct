@@ -121,34 +121,46 @@ public class LeetCode394 {
     }
 
 
-
-
     public String decodeStringTest2(String s) {
         //双栈法，数字栈和字母栈
         Stack<String> stackStr = new Stack<>();
         Stack<Integer> stackNum = new Stack<>();
         // 定义用来暂存字母组合
         StringBuilder stringBuilder = new StringBuilder();
+        int num = 0; // 暂存数字
         char[] charArray = s.toCharArray();
         for (char c : charArray) {
-            if(Character.isDigit(c)){  // 数字直接进行拼接，然后进入数字栈
-
+            if (Character.isDigit(c)) {  // 数字直接进行拼接
+                num = num * 10 + (c - '0');
+            } else if ('[' == c) {
+                stackNum.push(num);  // 一个数字对应一个左括号，所以可以用左括号来分隔数字
+                stackStr.push(String.valueOf(c));
+                num = 0; // 重置 num
+            } else if (']' == c) {
+                while (!"[".equals(stackStr.peek())) {
+                    stringBuilder.insert(0, stackStr.pop());
+                }
+                stackStr.pop();   // 左括号出栈
+                stackStr.push(stringBuilder.toString().repeat(stackNum.pop()));
+                stringBuilder = new StringBuilder();
+            } else {   // 字母直接入栈
+                stackStr.push(String.valueOf(c));
             }
         }
-
-        return null;
+        if (stackNum.isEmpty()) {
+            while (!stackStr.isEmpty()) {
+                stringBuilder.insert(0, stackStr.pop());
+            }
+            return stringBuilder.toString();
+        }
+        return stackStr.pop().repeat(stackNum.pop());
     }
-
-
-
-
-
 
 
     public static void main(String[] args) {
         LeetCode394 leetCode394 = new LeetCode394();
 //        System.out.println(leetCode394.decodeString("3[a2[c]]"));
-        System.out.println(leetCode394.decodeStringTest("3[a]2[bc]"));
+        System.out.println(leetCode394.decodeStringTest2("3[a]2[bc]"));
     }
 
 
