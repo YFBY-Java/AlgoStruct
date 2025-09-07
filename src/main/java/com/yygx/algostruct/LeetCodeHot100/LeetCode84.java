@@ -54,6 +54,46 @@ public class LeetCode84 {
     }
 
 
+
+
+    // 双指针剪枝
+    public int largestRectangleAreaPro(int[] heights) {
+        int length = heights.length;
+        // 用两个数组，记录当前元素左边连续比它高的 和 右边连续比他高的
+        int[] lh = new int[length];   // 初始化的时候都是0
+        int[] rh = new int[length];
+
+        // 从左向右扫描，计算每个柱子向左能延伸的长度
+        for (int i = 0; i < length; i++) {
+            int current = 1;   // 柱子本身自带宽度1
+            int left = i - 1;  // 从柱子的左侧开始扫描
+            while (left >= 0 && heights[left] >= heights[i]){
+                current = current + lh[left];  // 当前高度，当前位置左侧连续的，跳过中间连续的
+                left = left - lh[left];   // 向左跳过连续更高的
+            }
+            lh[i] = current;
+        }
+        // 向左扫描 计算每个柱子能向右延伸的长度
+        for (int i = length - 1; i >= 0; i--) {
+            int current = 1;  // 柱子本身自带宽度1    这个1进行了重复计数
+            int right = i + 1;
+            while (right < length && heights[right] >= heights[i]){
+                current = current + rh[right];
+                right = right + rh[right];
+            }
+            rh[i] = current;
+        }
+        int maxArea = 0;
+        for (int i = 0; i < length; i++) {
+            // 这里减去重复计数的一个宽度   （柱子本身的宽度计算了两次）
+            maxArea = Math.max(maxArea,(lh[i] + rh[i] - 1) * heights[i]);
+        }
+        return maxArea;
+    }
+
+
+
+
     public static void main(String[] args) {
         int[] heights = {2,1,5,6,2,3};
         LeetCode84 leetCode84 = new LeetCode84();
