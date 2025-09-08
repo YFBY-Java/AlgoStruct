@@ -93,8 +93,46 @@ public class LeetCode84 {
 
 
 
+    // 双指针剪枝
+    public int largestRectangleAreaTest(int[] heights) {
+        int length = heights.length;
+        // 定义 左边连续比当前元素大的 和 右边连续比当前大的  元素个数 数组
+        int[] lh = new int[length];
+        int[] rh = new int[length];
 
-    public static void main(String[] args) {
+        // 从左往右遍历，记录当前元素左边连续的元素个数
+        for (int i = 0; i < length; i++) {
+            int current = 1; // 当前柱子自带宽度1
+            int left = i - 1;
+            while (left >= 0 && heights[left] >= heights[i]){
+                current = current + lh[left];
+                left = left - lh[left];
+            }
+            lh[i] = current;
+        }
+        // 从右向左扫描，记录当前元素右侧连续的元素个数
+        for (int i = length - 1; i >= 0; i--) {
+            int current = 1; // 当前柱子自带宽度1，这里重复计算了一个宽度
+            int right = i + 1;
+            while (right < length && heights[right] >= heights[i]){
+                current = current + rh[right];
+                right = right + rh[right];
+            }
+            rh[i] = current;
+        }
+        int maxArea = 0;
+        for (int i = 0; i < length; i++) {
+            // 减去重复计算的 一个宽度
+            maxArea = Math.max(maxArea,(lh[i] + rh[i] - 1) * heights[i]);
+        }
+        return maxArea;
+    }
+
+
+
+
+
+        public static void main(String[] args) {
         int[] heights = {2,1,5,6,2,3};
         LeetCode84 leetCode84 = new LeetCode84();
         System.out.println(leetCode84.largestRectangleArea(heights));
