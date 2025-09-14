@@ -2,6 +2,7 @@ package com.yygx.algostruct.writtenTest;
 
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 // 小红书笔试准备
 // 9月14日 后端开发工程师-企业效率
@@ -80,6 +81,60 @@ public class WrittenTestPreparation_9_14 {
         }
         return count;
     }
+
+    /**
+     * 删除数组中的元素使相邻差值不超过 d
+     * <br/>
+     * 给定一个整数数组 nums 和整数 d，<br/>
+     * 可以删除数组中的元素，使得保留下来的元素任意两个相邻元素差值都不超过 d。<br/>
+     * <br/>
+     * 算法思路：<br/>
+     * 1. 对数组排序。<br/>
+     * 2. 使用动态规划，dp[i] 表示从索引 1 到 i 最多可以保留多少个元素。<br/>
+     * 3. 遍历数组，二分查找左边第一个与 nums[i] 差值大于 d 的元素索引 j。<br/>
+     * 4. 更新 dp[i] = dp[j] + 1。<br/>
+     * 5. 遍历 dp 数组取全局最大值 maxKeep。<br/>
+     * 6. 答案 = n - maxKeep。若删除数量为奇数，答案需减 1。<br/>
+     * <br/>
+     * 示例：<br/>
+     * 输入：nums = [1,3,6,10], d = 3<br/>
+     * 输出：1<br/>
+     * 解释：保留下来的子数组可以是 [1,3,6]，删除 10，删除数量为 1（奇数），所以答案减 1。<br/>
+     */
+    public void LargestSubsequence() {
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            int d = sc.nextInt();
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++) {
+                a[i] = sc.nextInt();
+            }
+
+            Arrays.sort(a); // 排序，保证递增
+
+            int maxKeep = 0;
+            // 暴力枚举每个子序列结尾
+            for (int i = 0; i < n; i++) {
+                int count = 1; // 至少保留自己
+                int last = a[i];
+                for (int j = i + 1; j < n; j++) {
+                    if (a[j] - last <= d) {
+                        count++;
+                        last = a[j]; // 更新最后一个保留的数
+                    }
+                }
+                maxKeep = Math.max(maxKeep, count);
+            }
+
+            int ans = n - maxKeep;
+            if (ans % 2 == 1) ans--; // 删除数量为奇数减一
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+
+
 
 
 }
