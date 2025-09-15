@@ -74,7 +74,7 @@ public class Bilibili {
 
 
 
-    public int calculatingScore (String text) {
+    public int calculatingScoreTest (String text) {
 //        return (text.length() - text.toLowerCase().replace("coder","").length()) / 5;
         // 前后必须是边界或者空格
         int count = 0;
@@ -90,4 +90,30 @@ public class Bilibili {
 
     }
 
-}
+
+
+    // 统计单词次数
+    public int calculatingScore (String text) {
+        // 转为小写
+        String lowerCase = text.toLowerCase();
+        // 按照空格拆分为字符串数组
+        String[] split = lowerCase.split(" ");
+        int count = 0;
+        for (String s : split) {
+            if("coder".equals(s)) count++;
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        Bilibili bilibili = new Bilibili();
+        System.out.println(bilibili.calculatingScore("Coder Coder Coder"));
+        System.out.println(bilibili.calculatingScore("Coder Coder Coder"));
+        System.out.println(bilibili.calculatingScore("Coder  Coder CoderCoder"));
+    }
+
+
+
+
+
+    }
