@@ -84,4 +84,43 @@ public class WrittenTestPreparation_9_15 {
     }
 
 
+    /**
+     * 给一个数组，对数组中的每个数，进行减法操作，只能减去1，2，3，4
+     * 而且1,2,3,4必须各减一次，如果能得到0，返回 减法次数，不能得到0返回 -1
+     * @param nums
+     * @return
+     */
+    public int[] subtractionTimes(int[] nums){
+        // 1 + 2 + 3 + 4 = 10  这个数大于10，才有解
+        int[] result = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            if(nums[i] < 10){
+                result[i] = -1;
+                continue;
+            }
+            int temp = nums[i] - 10;
+            int times = 4;
+            while (temp >= 4){
+                times += temp / 4;
+                temp %= 4;
+            }
+            if(temp > 0){
+                times++;
+            }
+            result[i] = times;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        //  [10, 16, 6, 66, 99, 963]
+        int[] nums = {10, 16, 6, 66, 99, 963};
+        WrittenTestPreparation_9_15 writtenTestPreparation_9_15 = new WrittenTestPreparation_9_15();
+        int[] result = writtenTestPreparation_9_15.subtractionTimes(nums);
+        for (int i : result) {
+            System.out.println(i);
+        }
+    }
+
+
 }
