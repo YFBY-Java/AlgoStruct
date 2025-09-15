@@ -1,6 +1,9 @@
 package com.yygx.algostruct.writtenTest;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 // 哔哩哔哩 笔试准备 26测开 质保中心
 public class WrittenTestPreparation_9_15 {
 
@@ -52,5 +55,33 @@ public class WrittenTestPreparation_9_15 {
         }
         return max;
     }
+
+
+    // 停车场，输入数组，输出数组，计算停车场最少需要多少停车位
+    // In 车辆进入序号，Out车辆离开序号
+    public int parkingCapacity(int[] In, int[] Out) {
+        // 进入指针和离开指针
+        int indexIn = 0;
+        int indexOut= 0;
+        // 停车场最多停车数量
+        int max = 0;
+        // 定义一个集合
+        Set<Integer> set = new HashSet<>();
+        // 判断要离开的车辆存不存在，存在就离开，不存在就进入
+        while (indexOut < Out.length){
+            if(set.contains(Out[indexOut])){
+                set.remove(Out[indexOut]);
+                // 比较之前的最大车辆数 和 当前车辆数
+                max = Math.max(max,set.size());
+                indexOut++;
+            }else {
+                // 停车场中不存在这个编号，进入一辆车，
+                set.add(In[indexIn]);
+                indexIn++;
+            }
+        }
+        return max;
+    }
+
 
 }
