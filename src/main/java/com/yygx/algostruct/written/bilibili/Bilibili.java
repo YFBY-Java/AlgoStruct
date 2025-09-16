@@ -1,6 +1,8 @@
 package com.yygx.algostruct.written.bilibili;
 
 
+import com.gargoylesoftware.htmlunit.javascript.host.ActiveXObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -104,6 +106,22 @@ public class Bilibili {
         }
         return count;
     }
+
+
+    // 统计单词次数
+    public int calculatingScoreTest1(String text){
+        // 转为小写
+        String lowerCase = text.toLowerCase();
+        // 按照空格拆分为数组
+        String[] split = lowerCase.split(" ");
+        int count = 0;
+        for (String s : split) {
+            if("s".equals(s)) count++;
+        }
+        return count;
+    }
+
+
 
     public static void main(String[] args) {
         Bilibili bilibili = new Bilibili();
