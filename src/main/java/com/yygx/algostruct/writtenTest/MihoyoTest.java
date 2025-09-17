@@ -158,6 +158,47 @@ public class MihoyoTest {
     }
 
 
+
+    /**
+     * 题意简述：
+     * 给定长度为 n 的两个数组 a 和 b。
+     * 第 i 天目标为 a[i]，实际为 b[i]。
+     * 若 b[i] < a[i]，令 deficit = a[i] - b[i]：
+     *   - 若到第 i 天为止累计实际 sumB >= 累计目标 sumA，则消耗 deficit 能量点；
+     *   - 否则消耗 2 * deficit 能量点。
+     * 计算总额外消耗能量点。
+     *
+     * 实现说明：
+     * - 使用 long 保存累计和与答案，防止溢出。
+     * - 单次遍历，维护 sumA 和 sumB，按规则累加 cost。
+     * - 时间复杂度 O(n)，额外空间 O(1)。
+     */
+    public long totalExtraEnergy(int[] a, int[] b) {
+        if (a == null || b == null || a.length != b.length) {
+            throw new IllegalArgumentException("数组为空或长度不一致");
+        }
+        long sumA = 0L;      // 到当前天为止的累计目标
+        long sumB = 0L;      // 到当前天为止的累计实际
+        long cost = 0L;      // 总额外消耗
+
+        for (int i = 0; i < a.length; i++) {
+            sumA += a[i];
+            sumB += b[i];
+
+            if (b[i] < a[i]) {
+                long deficit = (long) a[i] - (long) b[i];
+                if (sumB >= sumA) {
+                    cost += deficit;      // 累计实际不小于累计目标，消耗 deficit
+                } else {
+                    cost += 2L * deficit; // 累计实际小于累计目标，消耗 2*deficit
+                }
+            }
+        }
+        return cost;
+    }
+
+
+
     public static void main(String[] args) {
         MihoyoTest mihoyoTest = new MihoyoTest();
         boolean b = mihoyoTest.divisorGameTest(10);
