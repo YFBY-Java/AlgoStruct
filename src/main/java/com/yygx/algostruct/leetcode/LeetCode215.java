@@ -1,6 +1,9 @@
 package com.yygx.algostruct.leetcode;
 
+import com.gargoylesoftware.htmlunit.javascript.configuration.BrowserFeature;
+
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * LeetCode215. 数组中的第K个最大元素
@@ -19,6 +22,8 @@ import java.util.Arrays;
  */
 public class LeetCode215 {
 
+    Random random = new Random();
+
 
     public int findKthLargestTest(int[] nums, int k) {
         Arrays.sort(nums);
@@ -34,7 +39,7 @@ public class LeetCode215 {
      * @param k 第 k 大元素（1-based）
      * @return 第 k 大元素
      */
-    public int findKthLargest(int[] nums, int k) {
+    public int findKthLargestTest1(int[] nums, int k) {
         int n = nums.length;
         // 第 k 大元素 = 第 (n-k) 小元素
         int targetIndex = n - k;
@@ -74,13 +79,64 @@ public class LeetCode215 {
         }
     }
 
+
+
+
+
     /**
-     * 交换数组中两个元素
+     * 返回数组中第 k 个最大的元素
+     * @param nums 数组
+     * @param k 第 k 大元素（1-based）
+     * @return 第 k 大元素
      */
-    private void swap(int[] nums, int i, int j) {
-        int tmp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = tmp;
+    public int findKthLargest(int[] nums, int k) {
+        // 二分法
+        int length = nums.length;
+        int target = length - k;
+        // 在区间 nums[left...right] 查找下标为 target 的元素
+        int left = 0;
+        int right = length - 1;  // 初始化左右指针
+        while (true){
+            int partition = partition(nums, left, right);
+            if(partition == target){
+                return nums[partition];
+            }else if(partition > target) {
+                right = partition - 1;
+            }else {
+                left = partition + 1;
+            }
+        }
     }
+
+    // partition
+    public int partition(int[] nums,int left,int right){
+        // 随机选择一个索引作为 基准
+        int pivotIndex = left + random.nextInt(right - left + 1);
+        int pivotValue = nums[pivotIndex];
+        // 把选中的基准元素放到区间末尾，便于后续扫描
+        swap(nums,pivotIndex,right);   // 现在 nums[right] 存储的是原基准元素
+        // 记录小于 基准元素的索引
+        int storeIndex = left;
+        // 遍历 [left,right - 1]，把小于 基准（pivot）的元素交换到前面
+        for (int i = left; i < right; i++) {
+            if(nums[i] < pivotValue){
+                swap(nums,i,storeIndex);
+                storeIndex++;
+            }
+        }
+        // 最后把 基准元素放到正确位置
+        swap(nums,storeIndex,right);
+        return storeIndex;
+    }
+
+
+    // 交换数组中的元素
+    public void swap(int[] nums,int i,int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+
 
 }
