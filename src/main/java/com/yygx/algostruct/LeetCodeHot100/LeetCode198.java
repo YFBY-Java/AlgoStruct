@@ -45,4 +45,30 @@ public class LeetCode198 {
     }
 
 
-}
+
+
+
+
+
+
+
+
+    public int robTest(int[] nums) {
+        if(nums == null || nums.length == 0) return 0;
+        if(nums.length == 1) return nums[0];
+        // 定义一个dp数组
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        dp[1] = Math.max(dp[0],nums[1]);  // 初始化dp数组
+        // 从第三个元素开始遍历
+        for (int i = 2; i < nums.length; i++) {
+            dp[i] = Math.max(dp[i - 2] + nums[i],dp[i - 1]);
+        }
+        return dp[nums.length - 1];
+    }
+
+
+
+
+
+    }
