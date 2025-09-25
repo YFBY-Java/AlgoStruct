@@ -29,7 +29,7 @@ public class LeetCode189 {
 
     public void rotate(int[] nums, int k) {
         if(nums == null || nums.length <= 1) return;
-        // 先记录数组中的前k个元素，把k个元素之后的元素向前移动，把前k个元素赋值给后面元素
+        // 先记录数组中的后k个元素，把k个元素之后的元素向前移动，把前k个元素赋值给后面元素
         if(k >= nums.length) k = k % nums.length;
         int[] knum = new int[k];
         System.arraycopy(nums, nums.length - k, knum, 0, k);
@@ -60,6 +60,30 @@ public class LeetCode189 {
         System.arraycopy(knum,0,nums,0,k);
     }
 
+
+
+
+
+
+
+    public void rotateTest2(int[] nums, int k) {
+        // 记录数组中的后k个元素，元素后移，把后k个元素赋值给前面
+
+        // 如果数组为空或只有一个元素，不需要旋转
+        if(nums == null || nums.length <= 1) return;
+        // 如果 k 大于等于数组长度，取模避免无效循环
+        if(k >= nums.length) k %= nums.length;
+        // 把最后k个元素存入临时数组 knum
+        int[] knum = new int[k];
+        System.arraycopy(nums,nums.length - k,knum,0,k);
+        // 将前 n-k 个元素整体向后移动 k 位
+        int index = nums.length - k - 1;
+        for (int i = nums.length - 1; i >= k; i--) {
+            nums[i] = nums[index];
+            index--;
+        }
+        System.arraycopy(knum,0,nums,0,k);
+    }
 
 
 
