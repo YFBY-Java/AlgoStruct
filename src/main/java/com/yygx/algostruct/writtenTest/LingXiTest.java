@@ -1,7 +1,5 @@
 package com.yygx.algostruct.writtenTest;
 
-import com.gargoylesoftware.htmlunit.javascript.host.ActiveXObject;
-
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -60,14 +58,14 @@ public class LingXiTest {
         Arrays.sort(s);
         int index = 0;
         for (int i : s) {
-            if(index < g.length && i >= g[index]){
+            if (index < g.length && i >= g[index]) {
                 index++;
             }
         }
         return index;
     }
 
-    public void miners(){
+    public void miners() {
         Scanner scanner = new Scanner(System.in);
         // 读取矿工数量n 和 宝石数量 m
         int n = scanner.nextInt();
@@ -87,7 +85,7 @@ public class LingXiTest {
         Arrays.sort(gems);
         int count = 0;
         for (int worker : workers) {
-            if(count < gems.length && worker >= gems[count]){
+            if (count < gems.length && worker >= gems[count]) {
                 count++;
             }
         }
@@ -95,6 +93,84 @@ public class LingXiTest {
     }
 
 
+    /**
+     * 灵小犀的数字游戏
+     * <br/>
+     * 给定一个长度为 n 的整数序列，灵小犀可以进行若干次操作，每次操作可以选择序列中的一个元素并将其删除。<br/>
+     * 删除元素的条件是：删除的元素必须是其左边所有元素的和等于其右边所有元素的和。<br/>
+     * <br/>
+     * 示例 1：<br/>
+     * 输入：arr = [1, 3, 2, 4, 2]<br/>
+     * 输出：0<br/>
+     * 解释：没有可以删除的元素，所有元素的左边和与右边和都不相等。<br/>
+     * <br/>
+     * 示例 2：<br/>
+     * 输入：arr = [1, 2, 3, 2, 1]<br/>
+     * 输出：1<br/>
+     * 解释：可以删除第 3 个元素 3，因为左边元素和（1 + 2 = 3）等于右边元素和（2 + 1 = 3）。<br/>
+     * <br/>
+     * 输入描述：<br/>
+     * 第一行包含一个整数 n，表示序列长度。<br/>
+     * 第二行包含 n 个整数，表示给定的整数序列。<br/>
+     * <br/>
+     * 输出描述：<br/>
+     * 输出一个整数，表示最多能删除的元素个数。<br/>
+     */
+//    public static int maxDeletions(List<Integer> nums) {
+//
+//    }
+
+
+    /**
+     * LeetCode487. 最大连续 1 的个数 II
+     * <br/>
+     * 给定一个二进制数组 nums，如果最多可以翻转一个 0，<br/>
+     * 返回数组中连续 1 的最大个数。<br/>
+     * <br/>
+     * 示例 1：<br/>
+     * 输入：nums = [1,0,1,1,0]<br/>
+     * 输出：4<br/>
+     * 解释：翻转第一个 0 可以得到最长的连续 1，翻转后最大连续 1 的个数为 4。<br/>
+     * <br/>
+     * 示例 2：<br/>
+     * 输入：nums = [1,0,1,1,0,1]<br/>
+     * 输出：4<br/>
+     * <br/>
+     * 提示：<br/>
+     * 1 <= nums.length <= 10^5<br/>
+     * nums[i] 不是 0 就是 1。<br/>
+     */
+    public static int findMaxConsecutiveOnes(int[] nums) {
+        int len = nums.length;
+        int maxLen = 0;
+        int count0 = 0;  // 记录 0 个数，用来处理没有0的情况
+        for (int i = 0; i < len; i++) {
+            if (nums[i] == 0) {
+                count0++;
+                int left = 0;  // 左边连续1的个数
+                int right = 0;  // 右边连续1的个数
+                for (int l = i - 1; l >= 0 && nums[l] == 1; l--) {
+                    left++;
+                }
+                for (int r = i + 1; r < len && nums[r] == 1; r++) {
+                    right++;
+                }
+                // 更新 maxLen
+                maxLen = Math.max(maxLen, left + 1 + right);
+            }
+        }
+        // 如果数组全是1，maxLen 可能还没更新
+        if(count0 == 0){
+            return len;
+        }
+        return maxLen;
+    }
+
+    public static void main(String[] args) {
+        // [1,1,0,1]
+        int[] nums = {1,1,0,1};
+        System.out.println(findMaxConsecutiveOnes(nums));
+    }
 
 
 }
