@@ -1,6 +1,9 @@
 package com.yygx.algostruct.writtenTest;
 
+import com.gargoylesoftware.htmlunit.javascript.host.ActiveXObject;
+
 import java.util.Arrays;
+import java.util.Scanner;
 
 // 阿里灵犀互娱笔试准备
 public class LingXiTest {
@@ -63,6 +66,35 @@ public class LingXiTest {
         }
         return index;
     }
+
+    public void miners(){
+        Scanner scanner = new Scanner(System.in);
+        // 读取矿工数量n 和 宝石数量 m
+        int n = scanner.nextInt();
+        int m = scanner.nextInt();
+        // 读取矿工能力数组
+        int[] workers = new int[n];
+        for (int i = 0; i < n; i++) {
+            workers[i] = scanner.nextInt();
+        }
+        // 读取宝石硬度数组
+        int[] gems = new int[m];
+        for (int i = 0; i < m; i++) {
+            gems[i] = scanner.nextInt();
+        }
+        // 排序
+        Arrays.sort(workers);
+        Arrays.sort(gems);
+        int count = 0;
+        for (int worker : workers) {
+            if(count < gems.length && worker >= gems[count]){
+                count++;
+            }
+        }
+        System.out.println(count);
+    }
+
+
 
 
 }
