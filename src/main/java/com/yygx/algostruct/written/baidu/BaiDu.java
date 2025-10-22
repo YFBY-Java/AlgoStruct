@@ -35,27 +35,33 @@ public class BaiDu {
 //    }
 
 
-//    public static void main(String[] args) {
-//
-//        Scanner scanner = new Scanner(System.in);
-//        int n = scanner.nextInt();
-//        long[] a = new long[n];
-//        long min = Long.MAX_VALUE;
-//        for (int i = 0; i < n; i++) {
-//            a[i] = scanner.nextLong();
-//            if (a[i] < min) min = a[i];
-//        }
-////        Arrays.sort(a);
-//        long ans = 0;
-//        long limit = 2 * min;
-//        for (int i = 0; i < n; i++) {
-//            ans += (a[i] + limit - 1) / limit - 1;
-//        }
-//        System.out.println(ans);
-//    }
-
-
     public static void main(String[] args) {
+
+        numberOfOperations();
+    }
+
+    private static void numberOfOperations() {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        long[] a = new long[n];
+        long min = Long.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            a[i] = scanner.nextLong();
+            if (a[i] < min) min = a[i];
+        }
+//        Arrays.sort(a);
+        long ans = 0;
+        long limit = 2 * min;
+        for (int i = 0; i < n; i++) {
+            ans += (a[i] + limit - 1) / limit - 1;
+        }
+        System.out.println(ans);
+    }
+
+
+
+
+    private static void luckySubString() {
         Scanner scanner = new Scanner(System.in);
         int t = scanner.nextInt();
         while (t-- > 0) {
@@ -76,7 +82,6 @@ public class BaiDu {
             }
             System.out.println(ans);
         }
-
     }
 
 
