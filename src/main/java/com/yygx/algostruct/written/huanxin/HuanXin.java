@@ -14,7 +14,7 @@ public class HuanXin {
         int count = 0;
         for (int i = 0; i < s.length(); i++) {
             for (int j = 1; j + i < s.length(); j++) {
-                String substring = s.substring(i, i + j);
+                String substring = s.substring(i, i + j); 
                 boolean palindrome = isPalindrome(substring);
                 if (palindrome) {
                     count++;
